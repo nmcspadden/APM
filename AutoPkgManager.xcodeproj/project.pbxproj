@@ -18,6 +18,8 @@
 		005A62A1195499690032CEC6 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 005A6280195499690032CEC6 /* Cocoa.framework */; };
 		005A62A9195499690032CEC6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 005A62A7195499690032CEC6 /* InfoPlist.strings */; };
 		005A62AB195499690032CEC6 /* AutoPkgManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 005A62AA195499690032CEC6 /* AutoPkgManagerTests.m */; };
+		00DB7C2C195B37990030D3C1 /* APMProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB7C2B195B37990030D3C1 /* APMProcessor.m */; };
+		00DB7C2D195B37990030D3C1 /* APMProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB7C2B195B37990030D3C1 /* APMProcessor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,8 @@
 		005A62A6195499690032CEC6 /* AutoPkgManagerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AutoPkgManagerTests-Info.plist"; sourceTree = "<group>"; };
 		005A62A8195499690032CEC6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		005A62AA195499690032CEC6 /* AutoPkgManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutoPkgManagerTests.m; sourceTree = "<group>"; };
+		00DB7C2A195B37990030D3C1 /* APMProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APMProcessor.h; sourceTree = "<group>"; };
+		00DB7C2B195B37990030D3C1 /* APMProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APMProcessor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,8 @@
 			children = (
 				005A6292195499690032CEC6 /* APMAppDelegate.h */,
 				005A6293195499690032CEC6 /* APMAppDelegate.m */,
+				00DB7C2A195B37990030D3C1 /* APMProcessor.h */,
+				00DB7C2B195B37990030D3C1 /* APMProcessor.m */,
 				005A6295195499690032CEC6 /* MainMenu.xib */,
 				005A6298195499690032CEC6 /* Images.xcassets */,
 				005A6287195499690032CEC6 /* Supporting Files */,
@@ -254,6 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				005A628D195499690032CEC6 /* main.m in Sources */,
+				00DB7C2C195B37990030D3C1 /* APMProcessor.m in Sources */,
 				005A6294195499690032CEC6 /* APMAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				005A62AB195499690032CEC6 /* AutoPkgManagerTests.m in Sources */,
+				00DB7C2D195B37990030D3C1 /* APMProcessor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,6 +477,7 @@
 				005A62B0195499690032CEC6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		005A62B1195499690032CEC6 /* Build configuration list for PBXNativeTarget "AutoPkgManagerTests" */ = {
 			isa = XCConfigurationList;
@@ -477,6 +486,7 @@
 				005A62B3195499690032CEC6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
