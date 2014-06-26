@@ -12,8 +12,8 @@
 
 -(NSDictionary*) RetrieveDictionary
 {
-    
-    return NSDictionary* what;
+    //make the NSDictionary here to return
+    return [NSDictionary dictionaryWithObjectsAndKeys: @"Arguments", [self outputVariables], @"Processsor", [self name], nil ];
 }
 
 @end
