@@ -10,4 +10,9 @@
 
 @interface APMDocument : NSDocument
 
+@property (nonatomic) NSMutableArray *process;
+@property (nonatomic) IBOutlet NSTableView *processTable;
+
+- (IBAction)addProcessor:(id)sender;
+
 @end

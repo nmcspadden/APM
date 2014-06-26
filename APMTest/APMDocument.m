@@ -10,6 +10,8 @@
 
 @implementation APMDocument
 
+#pragma mark - NSDocument Overrides
+
 - (id)init
 {
     self = [super init];
@@ -64,6 +66,13 @@
     NSException *exception = [NSException exceptionWithName:@"UnimplementedMethod" reason:[NSString stringWithFormat:@"%@ is unimplemented", NSStringFromSelector(_cmd)] userInfo:nil];
     @throw exception;
     return YES;
+}
+
+#pragma mark - Actions
+
+- (void)addProcessor:(id)sender
+{
+    NSLog(@"Add Processor button clicked!");
 }
 
 @end
