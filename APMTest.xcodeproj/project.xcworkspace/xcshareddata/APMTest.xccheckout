@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>4E556078-03D5-4698-93ED-53D3593F3BCF</string>
+	<key>IDESourceControlProjectName</key>
+	<string>APMTest</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E70F1476-8AC3-4D7A-94AC-1C5665B42640</key>
+		<string>ssh://github.com/nmcspadden/APM.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>APMTest.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E70F1476-8AC3-4D7A-94AC-1C5665B42640</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/nmcspadden/APM.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E70F1476-8AC3-4D7A-94AC-1C5665B42640</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E70F1476-8AC3-4D7A-94AC-1C5665B42640</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AutoPkgManager</string>
+		</dict>
+	</array>
+</dict>
+</plist>
