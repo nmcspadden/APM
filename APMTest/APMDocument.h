@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface APMDocument : NSDocument
+    <NSTableViewDataSource>
 
 @property (nonatomic) NSMutableArray *process;
 @property (nonatomic) IBOutlet NSTableView *processTable;
