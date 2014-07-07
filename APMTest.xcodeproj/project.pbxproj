@@ -487,6 +487,7 @@
 				00DB7C6D195C9F840030D3C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		00DB7C6E195C9F840030D3C1 /* Build configuration list for PBXNativeTarget "APMTestTests" */ = {
 			isa = XCConfigurationList;
@@ -495,6 +496,7 @@
 				00DB7C70195C9F840030D3C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

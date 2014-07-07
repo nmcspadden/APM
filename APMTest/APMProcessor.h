@@ -10,10 +10,11 @@
 
 @interface APMProcessor : NSObject
 
-@property (strong, nonatomic, readonly) NSString *name;
-@property (strong, nonatomic, readonly) NSDictionary *inputVariables;
-@property (strong, nonatomic, readonly) NSDictionary *outputVariables;
+@property (strong, nonatomic, readonly) NSString *processor;
+@property (strong, nonatomic, readonly) NSDictionary *arguments;
+//@property (strong, nonatomic, readonly) NSDictionary *outputVariables;
 
+-(instancetype)initWithDictionary:(NSDictionary*)dict;
 -(NSDictionary*) RetrieveDictionary;
 
 @end

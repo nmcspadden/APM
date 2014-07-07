@@ -17,16 +17,17 @@
     self = [super init];
     if (self) {
         // Add your subclass-specific initialization here.
-        //get list of recipe search dirs, and recipe repos
+ /*       //get list of recipe search dirs, and recipe repos
         NSArray *RecipeSearchDirs = (__bridge NSArray *)(CFPreferencesCopyAppValue(CFSTR("RECIPE_SEARCH_DIRS"), CFSTR("com.github.autopkg")));
         NSDictionary *RecipeRepos = (__bridge NSDictionary *)(CFPreferencesCopyAppValue(CFSTR("RECIPE_REPOS"), CFSTR("com.github.autopkg")));
-        
+ */
         //get list of default processors by looking in /Library/AutoPkg/autopkglib for things ending in .py and not starting with __init__
         NSArray *extensions = [NSArray arrayWithObjects:@"py", nil];
         NSArray *dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:@"/Library/Autopkg/autopkglib/" error:nil];
         NSArray *files = [dirContents filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension IN %@", extensions]];
         //note that "files" still contains __init__.py, which needs to be ignored
 
+        self.process = [NSMutableArray array];
     }
     return self;
 }
@@ -66,7 +67,7 @@
     
     // Pack the tasks array into an NSData object
     NSData *data = [NSPropertyListSerialization
-                    dataWithPropertyList:self.process
+                    dataWithPropertyList:self.plist
                     format:NSPropertyListXMLFormat_v1_0
                     options:0
                     error:outError];
@@ -83,15 +84,27 @@
     NSException *exception = [NSException exceptionWithName:@"UnimplementedMethod" reason:[NSString stringWithFormat:@"%@ is unimplemented", NSStringFromSelector(_cmd)] userInfo:nil];
     @throw exception;
     return YES;*/
+    
     // This method is called when a document is being loaded
     // You are handed an NSData object and expected to pull our data out of it
     // Extract the tasks
-    self.process = [NSPropertyListSerialization
+    self.plist = [NSPropertyListSerialization
                   propertyListWithData:data
                   options:NSPropertyListMutableContainers
                   format:NULL
                   error:outError];
-    
+    self.description = [self.plist objectForKey:@"Description"];
+    self.identifier = [self.plist objectForKey:@"Identifier"];
+    self.minimumVersion = [self.plist objectForKey:@"MinimumVersion"];
+
+    //self.process = [self.plist objectForKey:@"Process"]; //Array of dicts of process
+    //what needs to happen now is that process needs to be made an array of APMProcessors, and the Process dict needs to be converted into APMProcessors
+    for (id key in [self.plist objectForKey:@"Process"])
+    {
+        //NSLog(key);
+        APMProcessor *newProc = [[APMProcessor alloc] initWithDictionary:(key)];
+        [self.process addObject:newProc];
+    }
     // return success or failure depending on success of the above call
     return (self.process != nil);
 }
@@ -134,7 +147,10 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 {
     // Return the item from tasks that corresponds to the cell
     // that the table view wants to display
-    return [self.process objectAtIndex:row];
+    
+    //This needs to be changed to accommodate the fact that process is now full of APMProcessors and therefore doesn't display well
+    
+    return [[self.process objectAtIndex:row] processor];
 }
 
 - (void)tableView:(NSTableView *)tableView
