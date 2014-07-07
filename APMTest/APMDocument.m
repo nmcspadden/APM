@@ -148,8 +148,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     // Return the item from tasks that corresponds to the cell
     // that the table view wants to display
     
-    //This needs to be changed to accommodate the fact that process is now full of APMProcessors and therefore doesn't display well
-    
     return [[self.process objectAtIndex:row] processor];
 }
 
