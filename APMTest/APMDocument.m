@@ -96,6 +96,7 @@
     self.description = [self.plist objectForKey:@"Description"];
     self.identifier = [self.plist objectForKey:@"Identifier"];
     self.minimumVersion = [self.plist objectForKey:@"MinimumVersion"];
+    self.inputVariables = [self.plist objectForKey:@"Input"];
 
     //self.process = [self.plist objectForKey:@"Process"]; //Array of dicts of process
     //what needs to happen now is that process needs to be made an array of APMProcessors, and the Process dict needs to be converted into APMProcessors
@@ -131,7 +132,7 @@
     [self updateChangeCount:NSChangeDone];
 }
 
-#pragma mark Data Source Methods
+#pragma mark - Data Source Methods
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tv
 {
@@ -163,4 +164,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
      // And then flag the document as having unsaved changes.
      [self updateChangeCount:NSChangeDone];
 }
+
+
 @end

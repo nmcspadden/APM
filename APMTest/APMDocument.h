@@ -20,9 +20,11 @@
 @property (nonatomic) NSString *identifier;
 @property (nonatomic) NSDictionary *inputVariables;
 @property (nonatomic) NSString *minimumVersion;
+
 @property (nonatomic) NSMutableArray *process;
 
 //Elements for display
+@property (nonatomic) IBOutlet NSTableView *informationTable;
 @property (nonatomic) IBOutlet NSTableView *processTable;
 
 - (IBAction)addProcessor:(id)sender;
