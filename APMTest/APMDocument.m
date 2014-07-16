@@ -94,13 +94,11 @@
                   format:NULL
                   error:outError];
     self.description = [self.plist objectForKey:@"Description"];
-   
+    [descriptionText setStringValue:@"hi"];
     
     self.identifier = [self.plist objectForKey:@"Identifier"];
-    [_identifierText setStringValue:self.identifier];
     
     self.minimumVersion = [self.plist objectForKey:@"MinimumVersion"];
-    [_versionText setStringValue:self.minimumVersion];
     
     self.inputVariables = [self.plist objectForKey:@"Input"];
 
@@ -171,5 +169,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
      [self updateChangeCount:NSChangeDone];
 }
 
+@synthesize descriptionText;
 
 @end

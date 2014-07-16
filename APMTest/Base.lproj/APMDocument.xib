@@ -7,7 +7,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="APMDocument">
             <connections>
                 <outlet property="descriptionText" destination="ZFT-K7-Pzl" id="5iA-jR-WhT"/>
-                <outlet property="identifierText" destination="3TX-Gm-Js5" id="LTU-D7-CiT"/>
+                <outlet property="identifierText" destination="3TX-Gm-Js5" id="F9P-8R-644"/>
                 <outlet property="processTable" destination="VEv-gT-keY" id="Lyz-3b-A4b"/>
                 <outlet property="versionText" destination="1w9-LK-sB3" id="JGD-cn-Rni"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
