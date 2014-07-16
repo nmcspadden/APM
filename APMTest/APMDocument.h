@@ -26,7 +26,12 @@
 //Elements for display
 @property (nonatomic) IBOutlet NSTableView *informationTable;
 @property (nonatomic) IBOutlet NSTableView *processTable;
+@property (weak) IBOutlet NSTextField *descriptionText;
+@property (weak) IBOutlet NSTextField *identifierText;
+@property (weak) IBOutlet NSTextField *versionText;
 
 - (IBAction)addProcessor:(id)sender;
+
+
 
 @end

@@ -94,8 +94,14 @@
                   format:NULL
                   error:outError];
     self.description = [self.plist objectForKey:@"Description"];
+   
+    
     self.identifier = [self.plist objectForKey:@"Identifier"];
+    [_identifierText setStringValue:self.identifier];
+    
     self.minimumVersion = [self.plist objectForKey:@"MinimumVersion"];
+    [_versionText setStringValue:self.minimumVersion];
+    
     self.inputVariables = [self.plist objectForKey:@"Input"];
 
     //self.process = [self.plist objectForKey:@"Process"]; //Array of dicts of process
