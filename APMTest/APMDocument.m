@@ -42,7 +42,9 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
     [super windowControllerDidLoadNib:aController];
-    // Add any code here that needs to be executed once the windowController has loaded the document's window.
+    [descriptionText setStringValue:self.description];
+    [identifierText setStringValue:self.identifier];
+    [versionText setStringValue:self.minimumVersion];
 }
 
 + (BOOL)autosavesInPlace
@@ -94,12 +96,8 @@
                   format:NULL
                   error:outError];
     self.description = [self.plist objectForKey:@"Description"];
-    [descriptionText setStringValue:@"hi"];
-    
     self.identifier = [self.plist objectForKey:@"Identifier"];
-    
     self.minimumVersion = [self.plist objectForKey:@"MinimumVersion"];
-    
     self.inputVariables = [self.plist objectForKey:@"Input"];
 
     //self.process = [self.plist objectForKey:@"Process"]; //Array of dicts of process
@@ -170,5 +168,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 }
 
 @synthesize descriptionText;
+@synthesize versionText;
+@synthesize identifierText;
 
 @end

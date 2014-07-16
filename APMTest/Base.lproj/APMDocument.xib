@@ -6,10 +6,11 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="APMDocument">
             <connections>
-                <outlet property="descriptionText" destination="ZFT-K7-Pzl" id="5iA-jR-WhT"/>
-                <outlet property="identifierText" destination="3TX-Gm-Js5" id="F9P-8R-644"/>
+                <outlet property="descriptionText" destination="ZFT-K7-Pzl" id="oGo-IU-2nh"/>
+                <outlet property="identifierText" destination="3TX-Gm-Js5" id="Boj-HG-rvJ"/>
+                <outlet property="inputTable" destination="g0s-bd-Wfh" id="O3A-nS-rYS"/>
                 <outlet property="processTable" destination="VEv-gT-keY" id="Lyz-3b-A4b"/>
-                <outlet property="versionText" destination="1w9-LK-sB3" id="JGD-cn-Rni"/>
+                <outlet property="versionText" destination="1w9-LK-sB3" id="nCl-Ir-saV"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
             </connections>
         </customObject>
