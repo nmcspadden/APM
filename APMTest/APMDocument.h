@@ -24,7 +24,7 @@
 @property (nonatomic) NSMutableArray *process;
 
 //Elements for display
-@property (nonatomic) IBOutlet NSTableView *informationTable;
+
 @property (nonatomic) IBOutlet NSTableView *processTable;
 @property (nonatomic) IBOutlet NSTextField *descriptionText;
 @property (nonatomic) IBOutlet NSTextField *versionText;

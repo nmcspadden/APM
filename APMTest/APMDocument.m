@@ -148,10 +148,16 @@
 objectValueForTableColumn:(NSTableColumn *)tableColumn
             row:(NSInteger)row
 {
-    // Return the item from tasks that corresponds to the cell
-    // that the table view wants to display
-    
-    return [[self.process objectAtIndex:row] processor];
+    if ([[tableColumn identifier] isEqualToString:@"inputKey"]) {
+        return [[self.inputVariables allKeys] objectAtIndex:row];
+    }
+    else if ([[tableColumn identifier] isEqualToString:@"inputValue"]) {
+        return [[self.inputVariables allValues] objectAtIndex:row];
+    }
+    else if ([[tableColumn identifier] isEqualToString:@"processKey"]) {
+        return [[self.process objectAtIndex:row] processor];
+    }
+    return 0;
 }
 
 - (void)tableView:(NSTableView *)tableView
