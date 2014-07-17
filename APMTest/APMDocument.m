@@ -123,7 +123,35 @@
 
 #pragma mark - Actions
 
+- (IBAction)ChangeInput:(id)sender {
+    int clickedSegment = [sender selectedSegment];
+    int clickedSegmentTag = [[sender cell] tagForSegment:clickedSegment];
+    switch (clickedSegmentTag) {
+        case 0:
+            //add an object to the array
+            NSLog(@"Add input!");
+            break;
+        case 1:
+            //delete the highlighted object from the array
+            NSLog(@"Delete input!");
+            break;
+    }
+}
 
+- (IBAction)ChangeProcess:(id)sender {
+    int clickedSegment = [sender selectedSegment];
+    int clickedSegmentTag = [[sender cell] tagForSegment:clickedSegment];
+    switch (clickedSegmentTag) {
+        case 0:
+            //add an object to the array
+            NSLog(@"Add process!");
+            break;
+        case 1:
+            //delete the highlighted object from the array
+            NSLog(@"Delete process!");
+            break;
+    }
+}
 
 #pragma mark - Data Source Methods
 
@@ -163,6 +191,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
      // And then flag the document as having unsaved changes.
      [self updateChangeCount:NSChangeDone];
 }
+
 
 
 @end

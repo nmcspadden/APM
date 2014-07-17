@@ -31,4 +31,8 @@
 @property (nonatomic) IBOutlet NSTextField *identifierText;
 @property (nonatomic) IBOutlet NSTableView *inputTable;
 
+- (IBAction)ChangeInput:(id)sender;
+- (IBAction)ChangeProcess:(id)sender;
+
+
 @end

@@ -220,6 +220,9 @@
                                 <segment image="NSRemoveTemplate" tag="1"/>
                             </segments>
                         </segmentedCell>
+                        <connections>
+                            <action selector="ChangeInput:" target="-2" id="naw-iH-wmO"/>
+                        </connections>
                     </segmentedControl>
                     <segmentedControl verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sZJ-Jh-68W">
                         <rect key="frame" x="20" y="19" width="51" height="23"/>
@@ -231,6 +234,9 @@
                                 <segment image="NSRemoveTemplate" tag="1"/>
                             </segments>
                         </segmentedCell>
+                        <connections>
+                            <action selector="ChangeProcess:" target="-2" id="ZZt-VI-U7k"/>
+                        </connections>
                     </segmentedControl>
                     <scrollView identifier="descriptionText" fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r5V-E6-jGW">
                         <rect key="frame" x="138" y="612" width="733" height="61"/>
