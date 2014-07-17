@@ -42,9 +42,18 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
     [super windowControllerDidLoadNib:aController];
+    if (!self.description) {
+        self.description = @"";
+    }
     _descriptionTextView.string = self.description;
-    [identifierText setStringValue:self.identifier];
-    [versionText setStringValue:self.minimumVersion];
+    if (!self.identifier) {
+        self.identifier = @"";
+    }
+    [_identifierText setStringValue:self.identifier];
+    if (!self.minimumVersion) {
+        self.minimumVersion = @"";
+    }
+    [_versionText setStringValue:self.minimumVersion];
 }
 
 + (BOOL)autosavesInPlace
@@ -155,7 +164,5 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
      [self updateChangeCount:NSChangeDone];
 }
 
-@synthesize versionText;
-@synthesize identifierText;
 
 @end
