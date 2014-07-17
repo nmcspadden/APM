@@ -22,9 +22,9 @@
         NSDictionary *RecipeRepos = (__bridge NSDictionary *)(CFPreferencesCopyAppValue(CFSTR("RECIPE_REPOS"), CFSTR("com.github.autopkg")));
  */
         //get list of default processors by looking in /Library/AutoPkg/autopkglib for things ending in .py and not starting with __init__
-        NSArray *extensions = [NSArray arrayWithObjects:@"py", nil];
-        NSArray *dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:@"/Library/Autopkg/autopkglib/" error:nil];
-        NSArray *files = [dirContents filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension IN %@", extensions]];
+        //NSArray *extensions = [NSArray arrayWithObjects:@"py", nil];
+        //NSArray *dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:@"/Library/Autopkg/autopkglib/" error:nil];
+        //NSArray *files = [dirContents filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension IN %@", extensions]];
         //note that "files" still contains __init__.py, which needs to be ignored
 
         self.process = [NSMutableArray array];
@@ -42,7 +42,7 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
     [super windowControllerDidLoadNib:aController];
-    [descriptionText setStringValue:self.description];
+    _descriptionTextView.string = self.description;
     [identifierText setStringValue:self.identifier];
     [versionText setStringValue:self.minimumVersion];
 }
@@ -114,26 +114,7 @@
 
 #pragma mark - Actions
 
-- (void)addProcessor:(id)sender
-{
-    NSLog(@"Add Processor button clicked!");
-    // If there is no array yet, create one
-    if (!self.process) {
-        self.process = [NSMutableArray array];
-    }
-    
-    [self.process addObject:@"New Item"];
-    
-    // -reloadData tells the table view to refresh and ask its dataSource
-    // (which happens to be this BNRDocument object in this case)
-    // for new data to display
-    [self.processTable reloadData];
-    
-    // -updateChangeCount: tells the application whether or not the document
-    // has unsaved changes, NSChangeDone flags the document as unsaved
-    [self updateChangeCount:NSChangeDone];
-    
-}
+
 
 #pragma mark - Data Source Methods
 
@@ -174,7 +155,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
      [self updateChangeCount:NSChangeDone];
 }
 
-@synthesize descriptionText;
 @synthesize versionText;
 @synthesize identifierText;
 

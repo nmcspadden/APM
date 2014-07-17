@@ -26,13 +26,9 @@
 //Elements for display
 
 @property (nonatomic) IBOutlet NSTableView *processTable;
-@property (nonatomic) IBOutlet NSTextField *descriptionText;
+@property (unsafe_unretained) IBOutlet NSTextView *descriptionTextView;
 @property (nonatomic) IBOutlet NSTextField *versionText;
 @property (nonatomic) IBOutlet NSTextField *identifierText;
 @property (nonatomic) IBOutlet NSTableView *inputTable;
-
-- (IBAction)addProcessor:(id)sender;
-
-
 
 @end
