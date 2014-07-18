@@ -44,7 +44,7 @@
 -(NSDictionary*) RetrieveDictionary
 {
     //make the NSDictionary here to return
-    NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:_processor, @"Processsor", nil];
+    NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:_processor, @"Processor", nil];
     if (_arguments) {
         [tempDict setObject:_arguments forKey:@"Arguments"];
     }
