@@ -44,8 +44,11 @@
 -(NSDictionary*) RetrieveDictionary
 {
     //make the NSDictionary here to return
-    _arguments = [[NSDictionary alloc] initWithObjectsAndKeys:@"", @"Arguments", nil]; //temporary until I get the arguments working
-    return [NSDictionary dictionaryWithObjectsAndKeys: _arguments, @"Arguments", _processor, @"Processsor", nil ];
+    NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:_processor, @"Processsor", nil];
+    if (_arguments) {
+        [tempDict setObject:_arguments forKey:@"Arguments"];
+    }
+    return tempDict;
 }
 
 @end

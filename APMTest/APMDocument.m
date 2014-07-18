@@ -157,6 +157,9 @@
         case 1:
             //delete the highlighted object from the array
             NSLog(@"Delete process!");
+            [self.process removeObjectAtIndex:[self.processTable selectedRow]];
+            [self.processTable reloadData];
+            [self updateChangeCount:NSChangeDone];
             break;
     }
 }
@@ -192,25 +195,18 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
    forTableColumn:(NSTableColumn *)tableColumn
               row:(NSInteger)row
 {
-    // When the user changes an entry on the table view,
-    // update the array
-    NSDictionary *tempDict = [[NSDictionary alloc] initWithObjectsAndKeys:object, @"Processor", nil];
-    
-    id tempObject = [[APMProcessor alloc] initWithDictionary:tempDict];
-    [self.process replaceObjectAtIndex:row withObject:tempObject];
-     
-     // And then flag the document as having unsaved changes.
-    
- /*
     if ([[tableColumn identifier] isEqualToString:@"inputKey"]) {
-        [self.inputVariables setObject:object forKey:(id<NSCopying>)]
+        
     }
     else if ([[tableColumn identifier] isEqualToString:@"inputValue"]) {
-        return [[self.inputVariables allValues] objectAtIndex:row];
+        
     }
     else if ([[tableColumn identifier] isEqualToString:@"processKey"]) {
-        return [[self.process objectAtIndex:row] processor];
-    }*/
+        NSDictionary *tempDict = [[NSDictionary alloc] initWithObjectsAndKeys:object, @"Processor", nil];
+        id tempObject = [[APMProcessor alloc] initWithDictionary:tempDict];
+        [self.process replaceObjectAtIndex:row withObject:tempObject];
+    }
+    // And then flag the document as having unsaved changes.
     [self updateChangeCount:NSChangeDone];
 }
 
