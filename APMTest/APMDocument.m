@@ -17,16 +17,7 @@
     self = [super init];
     if (self) {
         // Add your subclass-specific initialization here.
- /*       //get list of recipe search dirs, and recipe repos
-        NSArray *RecipeSearchDirs = (__bridge NSArray *)(CFPreferencesCopyAppValue(CFSTR("RECIPE_SEARCH_DIRS"), CFSTR("com.github.autopkg")));
-        NSDictionary *RecipeRepos = (__bridge NSDictionary *)(CFPreferencesCopyAppValue(CFSTR("RECIPE_REPOS"), CFSTR("com.github.autopkg")));
- */
-        //get list of default processors by looking in /Library/AutoPkg/autopkglib for things ending in .py and not starting with __init__
-        //NSArray *extensions = [NSArray arrayWithObjects:@"py", nil];
-        //NSArray *dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:@"/Library/Autopkg/autopkglib/" error:nil];
-        //NSArray *files = [dirContents filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension IN %@", extensions]];
-        //note that "files" still contains __init__.py, which needs to be ignored
-
+        self.inputVariables = [NSMutableDictionary dictionary];
         self.process = [NSMutableArray array];
     }
     return self;
@@ -42,10 +33,10 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
     [super windowControllerDidLoadNib:aController];
-    if (!self.description) {
-        self.description = @"";
+    if (!self.descriptionText) {
+        self.descriptionText = @"";
     }
-    _descriptionTextView.string = self.description;
+    _descriptionTextView.string = self.descriptionText;
     if (!self.identifier) {
         self.identifier = @"";
     }
@@ -75,6 +66,18 @@
     if (!self.process) {
         self.process = [NSMutableArray array];
     }
+    if (!self.plist) {
+        self.plist = [NSDictionary dictionary];
+    }
+    
+    NSMutableArray *plistProcess = [NSMutableArray array];
+    
+    //We need to convert the process array of APMProcessors into an array of NSDictionaries, and APMProcessor has a method to retrieve a dictionary.
+    for (id processor in self.process){
+        [plistProcess addObject:[processor RetrieveDictionary]];
+    }
+    
+    self.plist = [[NSDictionary alloc] initWithObjectsAndKeys:self.descriptionText, @"Description", self.identifier, @"Identifier", self.inputVariables, @"Input", self.minimumVersion, @"MinimumVersion", plistProcess, @"Process", nil];
     
     // Pack the tasks array into an NSData object
     NSData *data = [NSPropertyListSerialization
@@ -104,13 +107,12 @@
                   options:NSPropertyListMutableContainers
                   format:NULL
                   error:outError];
-    self.description = [self.plist objectForKey:@"Description"];
+    self.descriptionText = [self.plist objectForKey:@"Description"];
     self.identifier = [self.plist objectForKey:@"Identifier"];
     self.minimumVersion = [self.plist objectForKey:@"MinimumVersion"];
     self.inputVariables = [self.plist objectForKey:@"Input"];
 
-    //self.process = [self.plist objectForKey:@"Process"]; //Array of dicts of process
-    //what needs to happen now is that process needs to be made an array of APMProcessors, and the Process dict needs to be converted into APMProcessors
+    //self.process now becomes an array of APMProcessors
     for (id key in [self.plist objectForKey:@"Process"])
     {
         //NSLog(key);
@@ -145,6 +147,12 @@
         case 0:
             //add an object to the array
             NSLog(@"Add process!");
+            if (!self.process) {
+                self.process = [NSMutableArray array];
+            }
+            [self.process addObject:[APMProcessor alloc]];
+            [self.processTable reloadData];
+            [self updateChangeCount:NSChangeDone];
             break;
         case 1:
             //delete the highlighted object from the array
@@ -184,14 +192,31 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
    forTableColumn:(NSTableColumn *)tableColumn
               row:(NSInteger)row
 {
-    // When the user changes a task on the table view,
-    // update the tasks array
-    [self.process replaceObjectAtIndex:row withObject:object];
+    // When the user changes an entry on the table view,
+    // update the array
+    NSDictionary *tempDict = [[NSDictionary alloc] initWithObjectsAndKeys:object, @"Processor", nil];
+    
+    id tempObject = [[APMProcessor alloc] initWithDictionary:tempDict];
+    [self.process replaceObjectAtIndex:row withObject:tempObject];
      
      // And then flag the document as having unsaved changes.
-     [self updateChangeCount:NSChangeDone];
+    
+ /*
+    if ([[tableColumn identifier] isEqualToString:@"inputKey"]) {
+        [self.inputVariables setObject:object forKey:(id<NSCopying>)]
+    }
+    else if ([[tableColumn identifier] isEqualToString:@"inputValue"]) {
+        return [[self.inputVariables allValues] objectAtIndex:row];
+    }
+    else if ([[tableColumn identifier] isEqualToString:@"processKey"]) {
+        return [[self.process objectAtIndex:row] processor];
+    }*/
+    [self updateChangeCount:NSChangeDone];
 }
-
-
+/*
+- (void) controlTextDidChange:(NSNotification *)obj
+{
+    NSTextField *textField =
+}*/
 
 @end

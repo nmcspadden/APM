@@ -23,7 +23,12 @@
     // Did it return something non-nil?
     if (self) {
         _processor = [dict objectForKey:@"Processor"];
+        if (![dict objectForKey:@"Arguments"]) {
+            _arguments = nil;
+        }
+        else {
         _arguments = [dict objectForKey:@"Arguments"];
+        }
     }
     
     // Return a pointer to the new object
@@ -39,7 +44,8 @@
 -(NSDictionary*) RetrieveDictionary
 {
     //make the NSDictionary here to return
-    return [NSDictionary dictionaryWithObjectsAndKeys: @"Arguments", [self arguments], @"Processsor", [self processor], nil ];
+    _arguments = [[NSDictionary alloc] initWithObjectsAndKeys:@"", @"Arguments", nil]; //temporary until I get the arguments working
+    return [NSDictionary dictionaryWithObjectsAndKeys: _arguments, @"Arguments", _processor, @"Processsor", nil ];
 }
 
 @end

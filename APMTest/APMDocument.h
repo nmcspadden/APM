@@ -16,9 +16,9 @@
 @property (nonatomic) NSDictionary *plist;
 
 //Actual elements of the plist
-@property (nonatomic) NSString *description;
+@property (nonatomic) NSString *descriptionText;
 @property (nonatomic) NSString *identifier;
-@property (nonatomic) NSDictionary *inputVariables;
+@property (nonatomic) NSMutableDictionary *inputVariables;
 @property (nonatomic) NSString *minimumVersion;
 
 @property (nonatomic) NSMutableArray *process;
