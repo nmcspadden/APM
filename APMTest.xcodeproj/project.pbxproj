@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00ADCDED1979D83C008C805A /* APMInputVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ADCDEC1979D83C008C805A /* APMInputVariable.m */; };
 		00DB7C3B195C9F840030D3C1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00DB7C3A195C9F840030D3C1 /* Cocoa.framework */; };
 		00DB7C45195C9F840030D3C1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00DB7C43195C9F840030D3C1 /* InfoPlist.strings */; };
 		00DB7C47195C9F840030D3C1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DB7C46195C9F840030D3C1 /* main.m */; };
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00ADCDEB1979D83C008C805A /* APMInputVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APMInputVariable.h; sourceTree = "<group>"; };
+		00ADCDEC1979D83C008C805A /* APMInputVariable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APMInputVariable.m; sourceTree = "<group>"; };
 		00DB7C37195C9F840030D3C1 /* APMTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APMTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00DB7C3A195C9F840030D3C1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		00DB7C3D195C9F840030D3C1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -125,6 +128,8 @@
 				00DB7C79195CD3530030D3C1 /* APMProcessor.m */,
 				00DB7C4C195C9F840030D3C1 /* APMDocument.h */,
 				00DB7C4D195C9F840030D3C1 /* APMDocument.m */,
+				00ADCDEB1979D83C008C805A /* APMInputVariable.h */,
+				00ADCDEC1979D83C008C805A /* APMInputVariable.m */,
 				00DB7C4F195C9F840030D3C1 /* APMDocument.xib */,
 				00DB7C52195C9F840030D3C1 /* MainMenu.xib */,
 				00DB7C55195C9F840030D3C1 /* Images.xcassets */,
@@ -264,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00DB7C47195C9F840030D3C1 /* main.m in Sources */,
+				00ADCDED1979D83C008C805A /* APMInputVariable.m in Sources */,
 				00DB7C7A195CD3530030D3C1 /* APMProcessor.m in Sources */,
 				00DB7C4E195C9F840030D3C1 /* APMDocument.m in Sources */,
 			);
