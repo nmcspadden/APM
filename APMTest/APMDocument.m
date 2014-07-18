@@ -213,10 +213,13 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     }*/
     [self updateChangeCount:NSChangeDone];
 }
-/*
-- (void) controlTextDidChange:(NSNotification *)obj
+
+- (void) controlTextDidEndEditing:(NSNotification *)obj
 {
-    NSTextField *textField =
-}*/
+    self.descriptionText = [self.descriptionTextView string];
+    self.identifier = [self.identifierText stringValue];
+    self.minimumVersion = [self.versionText stringValue];
+    [self updateChangeCount:NSChangeDone];
+}
 
 @end
