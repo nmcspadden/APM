@@ -17,7 +17,7 @@
     self = [super init];
     if (self) {
         // Add your subclass-specific initialization here.
-        self.inputVariables = [NSMutableDictionary dictionary];
+        self.inputArray = [NSMutableArray array];
         self.process = [NSMutableArray array];
     }
     return self;
@@ -71,13 +71,16 @@
     }
     
     NSMutableArray *plistProcess = [NSMutableArray array];
+    NSMutableArray *plistInput = [NSMutableArray array];
     
     //We need to convert the process array of APMProcessors into an array of NSDictionaries, and APMProcessor has a method to retrieve a dictionary.
     for (id processor in self.process){
         [plistProcess addObject:[processor RetrieveDictionary]];
     }
-    
-    self.plist = [[NSDictionary alloc] initWithObjectsAndKeys:self.descriptionText, @"Description", self.identifier, @"Identifier", self.inputVariables, @"Input", self.minimumVersion, @"MinimumVersion", plistProcess, @"Process", nil];
+    for (id inputVar in self.inputArray){
+        [plistInput addObject:[inputVar RetrieveDictionary]];
+    }
+    self.plist = [[NSDictionary alloc] initWithObjectsAndKeys:self.descriptionText, @"Description", self.identifier, @"Identifier", plistInput, @"Input", self.minimumVersion, @"MinimumVersion", plistProcess, @"Process", nil];
     
     // Pack the tasks array into an NSData object
     NSData *data = [NSPropertyListSerialization
@@ -110,7 +113,6 @@
     self.descriptionText = [self.plist objectForKey:@"Description"];
     self.identifier = [self.plist objectForKey:@"Identifier"];
     self.minimumVersion = [self.plist objectForKey:@"MinimumVersion"];
-    self.inputVariables = [self.plist objectForKey:@"Input"];
 
     //self.process now becomes an array of APMProcessors
     for (id key in [self.plist objectForKey:@"Process"])
@@ -119,6 +121,16 @@
         APMProcessor *newProc = [[APMProcessor alloc] initWithDictionary:(key)];
         [self.process addObject:newProc];
     }
+    
+    //self.inputVariables now becomes an array of APMInputVariables
+    for (id key in [self.plist objectForKey:@"Input"])
+    {
+        //key = key
+        //[[self.plist objectForKey:@"Input"] objectForKey:key] = value
+        NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[[self.plist objectForKey:@"Input"] objectForKey:key], key, nil];
+        [self.inputArray addObject:[[APMInputVariable alloc] initWithDictionary:tempDict]];
+    }
+
     // return success or failure depending on success of the above call
     return (self.process != nil);
 }
@@ -132,11 +144,20 @@
         case 0:
             //add an object to the array
             NSLog(@"Add input!");
+            if (!self.inputArray) {
+                self.inputArray = [NSMutableArray array];
+            }
+            [self.inputArray addObject:[APMInputVariable alloc]];
+            [self.inputTable reloadData];
+            [self updateChangeCount:NSChangeDone];
             break;
         case 1:
             //delete the highlighted object from the array
             NSLog(@"Delete input!");
-            break;
+            [self.inputArray removeObjectAtIndex:[self.inputTable selectedRow]];
+            [self.inputTable reloadData];
+            [self updateChangeCount:NSChangeDone];
+           break;
     }
 }
 
@@ -179,10 +200,12 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
             row:(NSInteger)row
 {
     if ([[tableColumn identifier] isEqualToString:@"inputKey"]) {
-        return [[self.inputVariables allKeys] objectAtIndex:row];
+        //This is kinda weird, but the inputArray is an array of APMInputVariables, so we need to get the APMInputVariable, RetrieveDictionary from it, and then get the array of keys, for which there should only be one - the first one.
+        return [[[[self.inputArray objectAtIndex:row] RetrieveDictionary] allKeys] objectAtIndex:0];
     }
     else if ([[tableColumn identifier] isEqualToString:@"inputValue"]) {
-        return [[self.inputVariables allValues] objectAtIndex:row];
+        //We do the same thing as above, except with values instead of keys.
+        return [[[[self.inputArray objectAtIndex:row] RetrieveDictionary] allValues] objectAtIndex:0];
     }
     else if ([[tableColumn identifier] isEqualToString:@"processKey"]) {
         return [[self.process objectAtIndex:row] processor];
@@ -196,10 +219,17 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
               row:(NSInteger)row
 {
     if ([[tableColumn identifier] isEqualToString:@"inputKey"]) {
-        
+        //in the array of APMInputVariables, row is also the index for the object
+        //Thus, gather the APMInputVariable at [self.inputArray objectAtIndex:row], set either key or value, and then replace object in the array
+        //We do this by making a new APMInputVariable first, removing the old key from the dictionary, and setting the new key + value pair
+        APMInputVariable *currentVar = [self.inputArray objectAtIndex:row];
+        currentVar.inputKey = object; //value should not change
+        [self.inputArray replaceObjectAtIndex:row withObject:currentVar];
     }
     else if ([[tableColumn identifier] isEqualToString:@"inputValue"]) {
-        
+        APMInputVariable *currentVar = [self.inputArray objectAtIndex:row];
+        currentVar.inputValue = object; //key should not change
+        [self.inputArray replaceObjectAtIndex:row withObject:currentVar];
     }
     else if ([[tableColumn identifier] isEqualToString:@"processKey"]) {
         NSDictionary *tempDict = [[NSDictionary alloc] initWithObjectsAndKeys:object, @"Processor", nil];

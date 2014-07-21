@@ -10,8 +10,10 @@
 
 @interface APMInputVariable : NSObject
 
-@property (strong, nonatomic) NSDictionary *inputVariables;
+@property (strong, nonatomic) NSString *inputKey;
+@property (strong, nonatomic) id inputValue;
 
 -(instancetype)initWithDictionary:(NSDictionary*)dict;
+-(NSDictionary*) RetrieveDictionary;
 
 @end

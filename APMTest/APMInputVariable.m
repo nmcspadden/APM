@@ -22,7 +22,9 @@
     
     // Did it return something non-nil?
     if (self) {
-        _inputVariables = dict;
+        //Only recognize the first key and value in the dictionary, disregard all others
+        _inputKey = [[dict allKeys] objectAtIndex:0];
+        _inputValue = [[dict allValues] objectAtIndex:0];
      }
     
     // Return a pointer to the new object
@@ -32,8 +34,14 @@
 
 -(NSString *)description
 {
-    return [NSString stringWithFormat:self.inputVariables];
+    return [NSString stringWithFormat:@"<%@: %@ value>", self.inputKey, self.inputValue];
 }
 
+-(NSDictionary*) RetrieveDictionary
+{
+    //make the NSDictionary here to return
+    NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithObjectsAndKeys: _inputValue, _inputKey, nil];
+    return tempDict;
+}
 
 @end

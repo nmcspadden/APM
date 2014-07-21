@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #include "APMProcessor.h"
+#include "APMInputVariable.h"
 
 @interface APMDocument : NSDocument
     <NSTableViewDataSource>
@@ -18,18 +19,17 @@
 //Actual elements of the plist
 @property (nonatomic) NSString *descriptionText;
 @property (nonatomic) NSString *identifier;
-@property (nonatomic) NSMutableDictionary *inputVariables;
 @property (nonatomic) NSString *minimumVersion;
 
 @property (nonatomic) NSMutableArray *process;
+@property (nonatomic) NSMutableArray *inputArray;
 
 //Elements for display
-
+@property (nonatomic) IBOutlet NSTableView *inputTable;
 @property (nonatomic) IBOutlet NSTableView *processTable;
 @property (unsafe_unretained) IBOutlet NSTextView *descriptionTextView;
 @property (nonatomic) IBOutlet NSTextField *versionText;
 @property (nonatomic) IBOutlet NSTextField *identifierText;
-@property (nonatomic) IBOutlet NSTableView *inputTable;
 
 - (IBAction)ChangeInput:(id)sender;
 - (IBAction)ChangeProcess:(id)sender;
