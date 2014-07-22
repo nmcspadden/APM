@@ -69,16 +69,19 @@
     if (!self.plist) {
         self.plist = [NSDictionary dictionary];
     }
+    if (!self.inputArray) {
+        self.inputArray = [NSMutableArray array];
+    }
     
     NSMutableArray *plistProcess = [NSMutableArray array];
-    NSMutableArray *plistInput = [NSMutableArray array];
+    NSMutableDictionary *plistInput = [NSMutableDictionary dictionary];
     
     //We need to convert the process array of APMProcessors into an array of NSDictionaries, and APMProcessor has a method to retrieve a dictionary.
     for (id processor in self.process){
         [plistProcess addObject:[processor RetrieveDictionary]];
     }
     for (id inputVar in self.inputArray){
-        [plistInput addObject:[inputVar RetrieveDictionary]];
+        [plistInput addEntriesFromDictionary:[inputVar RetrieveDictionary]];
     }
     self.plist = [[NSDictionary alloc] initWithObjectsAndKeys:self.descriptionText, @"Description", self.identifier, @"Identifier", plistInput, @"Input", self.minimumVersion, @"MinimumVersion", plistProcess, @"Process", nil];
     
@@ -110,24 +113,31 @@
                   options:NSPropertyListMutableContainers
                   format:NULL
                   error:outError];
+    if (!self.plist) {
+        NSLog(@"Plist failed! %@", &outError);
+        return false;
+    }
     self.descriptionText = [self.plist objectForKey:@"Description"];
     self.identifier = [self.plist objectForKey:@"Identifier"];
     self.minimumVersion = [self.plist objectForKey:@"MinimumVersion"];
-
+    
     //self.process now becomes an array of APMProcessors
     for (id key in [self.plist objectForKey:@"Process"])
     {
-        //NSLog(key);
+        //NSLog(@"%@", key);
         APMProcessor *newProc = [[APMProcessor alloc] initWithDictionary:(key)];
         [self.process addObject:newProc];
     }
     
+    if (![[self.plist objectForKey:@"Input"] isKindOfClass:[NSDictionary class]]){
+        return NO;
+    }
     //self.inputVariables now becomes an array of APMInputVariables
     for (id key in [self.plist objectForKey:@"Input"])
     {
         //key = key
         //[[self.plist objectForKey:@"Input"] objectForKey:key] = value
-        NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[[self.plist objectForKey:@"Input"] objectForKey:key], key, nil];
+        NSDictionary *tempDict = [[NSDictionary alloc] initWithObjectsAndKeys:[[self.plist objectForKey:@"Input"] objectForKey:key], key, nil];
         [self.inputArray addObject:[[APMInputVariable alloc] initWithDictionary:tempDict]];
     }
 
@@ -138,8 +148,8 @@
 #pragma mark - Actions
 
 - (IBAction)ChangeInput:(id)sender {
-    int clickedSegment = [sender selectedSegment];
-    int clickedSegmentTag = [[sender cell] tagForSegment:clickedSegment];
+    NSInteger clickedSegment = [sender selectedSegment];
+    NSInteger clickedSegmentTag = [[sender cell] tagForSegment:clickedSegment];
     switch (clickedSegmentTag) {
         case 0:
             //add an object to the array
@@ -147,7 +157,7 @@
             if (!self.inputArray) {
                 self.inputArray = [NSMutableArray array];
             }
-            [self.inputArray addObject:[APMInputVariable alloc]];
+            [self.inputArray addObject:[[APMInputVariable alloc] init]];
             [self.inputTable reloadData];
             [self updateChangeCount:NSChangeDone];
             break;
@@ -162,8 +172,8 @@
 }
 
 - (IBAction)ChangeProcess:(id)sender {
-    int clickedSegment = [sender selectedSegment];
-    int clickedSegmentTag = [[sender cell] tagForSegment:clickedSegment];
+    NSInteger clickedSegment = [sender selectedSegment];
+    NSInteger clickedSegmentTag = [[sender cell] tagForSegment:clickedSegment];
     switch (clickedSegmentTag) {
         case 0:
             //add an object to the array
@@ -192,7 +202,13 @@
     // This table view displays the tasks array,
     // so the number of entries in the table view will be the same
     // as the number of objects in the array
-    return [self.process count];
+    if (tv == _inputTable) {
+        return [self.inputArray count];
+    }
+    else if (tv == _processTable){
+        return [self.process count];
+    }
+    return 0;
 }
 
 - (id)tableView:(NSTableView *)tableView
@@ -201,6 +217,10 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 {
     if ([[tableColumn identifier] isEqualToString:@"inputKey"]) {
         //This is kinda weird, but the inputArray is an array of APMInputVariables, so we need to get the APMInputVariable, RetrieveDictionary from it, and then get the array of keys, for which there should only be one - the first one.
+        if (![self.inputArray objectAtIndex:row]) {
+            NSLog(@"Fail?");
+            return @"";
+        }
         return [[[[self.inputArray objectAtIndex:row] RetrieveDictionary] allKeys] objectAtIndex:0];
     }
     else if ([[tableColumn identifier] isEqualToString:@"inputValue"]) {

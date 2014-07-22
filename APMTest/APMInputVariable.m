@@ -12,7 +12,9 @@
 
 - (instancetype)init
 {
-    return [self initWithDictionary:[NSDictionary dictionary]];
+    _inputKey = @"";
+    _inputValue = @"";
+    return self;
 }
 
 -(instancetype)initWithDictionary:(NSDictionary *)dict
@@ -23,8 +25,18 @@
     // Did it return something non-nil?
     if (self) {
         //Only recognize the first key and value in the dictionary, disregard all others
-        _inputKey = [[dict allKeys] objectAtIndex:0];
-        _inputValue = [[dict allValues] objectAtIndex:0];
+        if (![dict allKeys]) {
+            _inputKey = @"";
+        }
+        else {
+            _inputKey = [[dict allKeys] objectAtIndex:0];
+        }
+        if (![dict allValues]) {
+            _inputValue = @"";
+        }
+        else {
+            _inputValue = [[dict allValues] objectAtIndex:0];
+        }
      }
     
     // Return a pointer to the new object
